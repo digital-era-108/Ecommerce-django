@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+
+{% block title %}Cart{% endblock title %}
+
+{% block cart %}
+
+{% if cart_products %}
+    <!-- ------------------------- Cart Page ----------------------------------- -->
+
+    <section class="section-content padding-y">
+		<div class="container">
+
+			<div class="row">
+				<main class="col-md-9">
+					<div class="card">
+
+						<table class="table table-borderless table-shopping-cart">
+							<thead class="text-muted">
+								<tr class="small text-uppercase">
+									<th scope="col">Product</th>
+									<th scope="col" width="120">Quantity</th>
+									<th scope="col" width="120">Price</th>
+									<th scope="col" class="text-right" width="200"> </th>
+								</tr>
+							</thead>
+							<tbody>
+                                
+                                {% for cart in cart_products %}
+								<tr>
+									<td>
+										<figure class="itemside">
+                                            
+											<div class="aside"><img src="/media/{{cart.product.product_image}}" class="img-sm">
+											</div>
+                                            
+											<figcaption class="info">
+												<a href="{% url 'product_detail' cart.product.slug %}" class="title text-dark">{{cart.product.title}}</a>
+												{% comment %} <p class="text-muted small">Size: XL, Color: blue, <br> Brand: Gucci</p> {% endcomment %}
+											</figcaption>
+										</figure>
+									</td>
+									<td>
+										 <div class="form-group col-md flex-grow-0">
+											<div class="input-group mb-3 input-spinner">
+												<div class="input-group-prepend">
+													<a href="{% url 'plus_cart' cart.id %}" class="btn btn-light" id="button-plus">+</a>
+												</div>
+												<input type="text" class="form-control" value="{{cart.quantity}}">
+												<div class="input-group-append">
+													<a href="{% url 'minus_cart' cart.id %}" class="btn btn-light" id="button-minus" >-</a>
+												</div>
+											</div>
+											</div> 
+									</td>
+									<td>
+										<div class="price-wrap">
+											<var class="price">{{cart.product.price}}</var>
+											{% comment %} <small class="text-muted"> $315.20 each </small> {% endcomment %}
+										</div> <!-- price-wrap .// -->
+									</td>
+									<td class="text-right">
+										<a data-original-title="Save to Wishlist" title="" href="" class="btn btn-light"
+											data-toggle="tooltip"> <i class="fa fa-heart"></i></a>
+										<a href="{% url 'remove_cart' cart.id %}" class="btn btn-light"> Remove</a>
+									</td>
+								</tr>
+								{% endfor %}
+                                
+								
+							</tbody>
+						</table>
+
+						<div class="card-body border-top">
+							<a href="{% url 'checkout' %}" class="btn btn-primary float-md-right"> Make Purchase <i
+									class="fa fa-chevron-right"></i> </a>
+							<a href="/" class="btn btn-light"> <i class="fa fa-chevron-left"></i> Continue shopping </a>
+						</div>
+					</div> <!-- card.// -->
+
+					<div class="alert alert-success mt-3">
+						<p class="icontext"><i class="icon text-success fa fa-truck"></i> Free Delivery within 1-2 weeks
+						</p>
+					</div>
+
+				</main> <!-- col.// -->
+				<aside class="col-md-3">
+					{% comment %} <div class="card mb-3">
+						<div class="card-body">
+							<form>
+								<div class="form-group">
+									<label>Have coupon?</label>
+									<div class="input-group">
+										<input type="text" class="form-control" name="" placeholder="Coupon code">
+										<span class="input-group-append">
+											<button class="btn btn-primary">Apply</button>
+										</span>
+									</div>
+								</div>
+							</form>
+						</div> 
+					</div>  {% endcomment %}
+					<div class="card">
+						<div class="card-body">
+							<dl class="dlist-align">
+								<dt>Price:</dt>
+								<dd class="text-right">{{amount}}</dd>
+							</dl>
+							<dl class="dlist-align">
+								<dt>Discount:</dt>
+								<dd class="text-right">0.00</dd>
+							</dl>
+							<dl class="dlist-align">
+								<dt>Charges:</dt>
+								<dd class="text-right">{{shipping_charges}}</dd>
+							</dl>
+							<dl class="dlist-align">
+								<dt>Total Price:</dt>
+								<dd class="text-right  h6"><strong>{{total}}</strong></dd>
+							</dl>
+							<hr>
+							<p class="text-center mb-3">
+								<img src="/static/images/misc/payments.png" height="26">
+							</p>
+
+						</div> <!-- card-body.// -->
+					</div> <!-- card .// -->
+				</aside> <!-- col.// -->
+			</div>
+
+		</div> <!-- container .//  -->
+	</section>
+	{% else %}
+	<div class="text-center mt-5 section-content padding-y card bg container">
+		<h1 class="h5">Cart is Empty</h1>
+		<a href="/">Continue shopping</a>
+	</div>
+
+	{% endif %}
+
+
+
+{% endblock cart %}

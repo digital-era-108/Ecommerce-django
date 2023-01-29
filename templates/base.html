@@ -1,0 +1,265 @@
+<!DOCTYPE HTML>
+{% load static %}
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<title>Store -- {% block title %}Home{% endblock %}</title>
+
+	<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+	
+	{% comment %} Google Fonts {% endcomment %}
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;500;600;700;800&display=swap" rel="stylesheet">
+
+
+	<link rel="shortcut icon" type="image/x-icon" href="/static/images/favicon.ico">
+
+	<link rel="stylesheet" href="/static/css/style.css">
+
+	<!-- CSS only -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+	<!-- jQuery -->
+	<script src="/static/js/jquery-2.0.0.min.js" type="text/javascript"></script>
+
+	<!-- Bootstrap4 files-->
+	<script src="/static/js/bootstrap.bundle.min.js" type="text/javascript"></script>
+	<link href="/static/css/bootstrap.css" rel="stylesheet" type="text/css" />
+
+	<!-- Font awesome 5 -->
+	<link href="/static/fonts/fontawesome/css/all.min.css" type="text/css" rel="stylesheet">
+
+	<!-- custom style -->
+	<link href="/static/css/ui.css" rel="stylesheet" type="text/css" />
+	<link href="/static/css/responsive.css" rel="stylesheet" />
+
+	<!-- custom javascript -->
+	<script src="js/script.js" type="text/javascript"></script>
+
+</head>
+<body>
+
+	<div class="msg-right">
+		{% for msg in messages %}
+			<div class="alert alert-{{msg.tags}} alert-dismissible fade show" role="alert">
+			{{msg}}
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			   </div>
+		{% endfor %}
+	</div>
+
+
+	<header class="section-header">
+
+		<nav class="navbar navbar-dark navbar-expand p-0 bg-dark">
+			<div class="container">
+				<ul class="navbar-nav d-none d-md-flex mr-auto">
+					<li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+					<li class="nav-item"><a class="nav-link" href="{% url 'orders' %}">Orders</a></li>
+					
+                    
+				</ul>
+				<ul class="navbar-nav">
+					<li class="nav-item"><a href="#" class="nav-link"> Call: +99812345678 </a></li>
+					<li class="nav-item dropdown">
+						<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"> Categories </a>
+						<ul class="dropdown-menu dropdown-menu-right" style="max-width: 100px;">
+							{% for category in all_categories %}
+							<li><a class="dropdown-item" href="{% url 'category_product' category.slug %}">{{category.title}}</a></li>
+							{% endfor %}
+							<li><a class="dropdown-item" href="{% url 'categories' %}">All Categories</a></li>
+						</ul>
+					</li>
+				</ul> <!-- list-inline //  -->
+			</div> <!-- navbar-collapse .// -->
+			<!-- container //  -->
+		</nav> <!-- header-top-light.// -->
+
+		<section class="header-main border-bottom">
+			<div class="container">
+				<div class="row align-items-center">
+					<div class="col-lg-2 col-4">
+						<div class="brand-wrap">
+							<a href="/"><img class="logo" src="/static/images/logo.png"></a>
+						</div> <!-- brand-wrap.// -->
+					</div>
+					<div class="col-lg-6 col-sm-12">
+						<form action="{% url 'search' %}" method="get" class="search">
+							<div class="input-group w-100">
+								<input type="text" name="q" id="query_search" class="form-control" placeholder="Search">
+								<div class="input-group-append">
+									<button class="btn btn-primary" type="submit">
+										<i class="fa fa-search"></i>
+									</button>
+								</div>
+							</div>
+						</form> <!-- search-wrap .end// -->
+					</div> <!-- col.// -->
+
+					<div class="col-lg-4 col-sm-6 col-8">
+						<div class="widgets-wrap float-md-right">
+							<div class="widget-header  mr-3">
+								<a href="{% url 'cart' %}" class="icon icon-sm rounded-circle border"><i
+										class="fa fa-shopping-cart"></i></a>
+								<span class="badge badge-pill badge-danger notify">{{cart_items.count}}</span>
+							</div>
+
+
+
+							<div class="widget-header icontext">
+								<a href="#" class="icon icon-sm rounded-circle border"><i class="fa fa-user"></i></a>
+								<div class="text">
+
+                                    {% if user.is_authenticated %}
+									
+                                    <div>
+										<span class="text-muted">Welcome!</span>
+										<ul class="navbar-nav">
+											<li class="nav-item dropdown">
+												<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Hello, {{user.first_name | capfirst}} </a>
+												<ul class="dropdown-menu dropdown-menu-right" style="max-width: 100px;">
+													<li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
+													<li><a class="dropdown-item" href="{% url 'cart' %}">Cart</a></li>
+													<li><a class="dropdown-item" href="{% url 'orders' %}">Orders</a></li>
+													<li><a class="dropdown-item" href="{% url 'signout' %}">Logout</a></li>
+												</ul>
+											</li>
+										</ul> <!-- list-inline //  -->
+									</div>
+                                    {% else %}
+									<div>
+										<a href="{% url 'signin' %}">Sign in</a> |
+										<a href="{% url 'signup' %}"> Register</a>
+									</div>
+                                    {% endif %}
+								</div>
+							</div>
+						</div> <!-- widgets-wrap.// -->
+					</div> <!-- col.// -->
+				</div> <!-- row.// -->
+			</div> <!-- container.// -->
+		</section> <!-- header-main .// -->
+	</header>
+
+	{% comment %} Product Detail Page {% endcomment %}
+	{% block product_detail %}
+	{% endblock %}
+
+
+	{% comment %} Cards {% endcomment %}
+	{% block cards %}
+	{% endblock cards %}
+	
+
+	{% comment %} All Categories {% endcomment %}
+	{% block categories %}
+	{% endblock %}
+
+	
+	{% comment %} Cart {% endcomment %}
+	{% block cart %}
+	{% endblock cart %}
+
+
+	{% comment %} Profile {% endcomment %}
+	{% block profile %}
+	{% endblock  %}
+	
+
+	{% comment %} Address {% endcomment %}
+	{% block address %}
+	{% endblock  %}
+
+	{% comment %} Checkout {% endcomment %}
+	{% block checkout %}
+	{% endblock  %}
+
+
+	{% comment %} Orders {% endcomment %}
+	{% block orders %}
+	{% endblock  %}
+
+	{% comment %} Search {% endcomment %}
+	{% block search %}
+	{% endblock  %}
+
+
+
+
+
+	  <!-- Site footer -->
+	  <footer class="site-footer mt-6">
+		<div class="container">
+		  <div class="row">
+			<div class="col-sm-12 col-md-6">
+			  <h6>About</h6>
+			  <p class="text-justify fix-width">Store.com <i>CODE WANTS TO BE SIMPLE </i> is an initiative  to help the upcoming programmers with the code. Scanfcode focuses on providing the most efficient code or snippets as the code wants to be simple. We will help programmers build up concepts in different programming languages that include HTML, CSS, Bootstrap, JavaScript, Python, Django, SQL and Algorithm.</p>
+			</div>
+  
+			<div class="col-xs-6 col-md-3">
+			  <h6>Categories</h6>
+			  <ul class="footer-links">
+				{% for category in all_categories|slice:"0:5" %}
+				<li><a href="{% url 'category_product' category.slug %}">{{category.title}}</a></li>
+				{% endfor %}
+			  </ul>
+			</div>
+  
+			<div class="col-xs-6 col-md-3">
+			  <h6>Quick Links</h6>
+			  <ul class="footer-links">
+				<li><a href="">About Us</a></li>
+				<li><a href="">Contact Us</a></li>
+				<li><a href="">Contribute</a></li>
+				<li><a href="">Privacy Policy</a></li>
+				
+			  </ul>
+			</div>
+		  </div>
+		  <hr>
+		</div>
+		<div class="container">
+		  <div class="row">
+			<div class="col-md-8 col-sm-6 col-xs-12">
+			  <p class="copyright-text">Copyright &copy; 2017 All Rights Reserved by 
+		   <a href="#">Store</a>.
+			  </p>
+			</div>
+  
+			<div class="col-md-4 col-sm-6 col-xs-12">
+			  <ul class="social-icon">
+
+				 <li><a href=""><img src="{% static 'images/hero/facebook-circular-logo.png' %}" alt=""></a></li>
+
+				 <li><a href=""><img src="{% static 'images/hero/instagram.png' %}" alt=""></a></li>
+
+				 <li><a href=""><img src="{% static 'images/hero/twitter.png' %}" alt=""></a></li>
+
+				 <li><a href=""><img src="{% static 'images/hero/linkedin.png' %}" alt=""></a></li>
+
+			  </ul>
+			</div>
+		  </div>
+		</div>
+  </footer>
+
+
+
+
+
+
+
+	<!-- JavaScript Bundle with Popper -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+    crossorigin="anonymous"></script>
+
+	<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+	<script src="/static/js/main.js"></script>
+</body>
+</html>

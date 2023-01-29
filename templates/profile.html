@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block title %}Profile{% endblock title %}
+
+{% block profile %}
+
+<section class="section-content padding-y mt-3">
+
+    <div class="container card" style="padding:3rem;" >
+        <div class="details">
+            <h3 class="text-muted h4">Profile</h3>
+            <p class="text-muted" style="margin-bottom:0.1rem; !important">Name : {{user.first_name}}</p>
+            <p class="text-muted ">Email : {{user.username}}</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-md-6 card" style="padding:2rem; margin-right:2rem;">
+                <div class="row">
+                    <h4 class="col-md-10" >Address</h4>
+                    <a href="{% url 'address' %}" class="col-md-2 text-center card bg" style="padding:0.7rem 0; color:black;"><i class="fa fa-plus"></i></a>
+                </div>
+                {% if useraddress %}
+                {% for address in useraddress %}
+                <div class="row mt-4">
+                    <div class="left col-md-10">
+                        <h4>{{forloop.counter}} : Address</h4>
+                        <div style="width:380px;" class="mt-2">
+                            <p style="margin:0px;">{{address.locality}}</p>
+                            <p style="margin:0px;">{{address.city}}</p>
+                            <p style="margin:0px;">{{address.state}}</p>
+                        </div>
+                        
+                    </div>
+                    <div class="right col-md-2 mt-5 text-center">
+                        <a href="{% url 'trash_address' address.id  %}" class="card bg" style="padding:0.7rem 0; color:black;"><i class="fa fa-trash"></i></a>
+                    </div>
+                </div>
+                {% endfor %}
+                {% endif %}
+            </div>
+
+
+            {% comment %} Table Order {% endcomment %}
+            <div class="col-md-5 card" style="padding:2rem;">
+                <div class="row">
+                    <h4 class="col-md-8" >Orders</h4>
+                </div>
+                
+                <div class="oders mt-4">
+                    <div class="left">
+                        <table class="table">
+                            <thead>
+                              <tr>
+                                <th scope="col">Order</th>
+                                <th scope="col">Product</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Status</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                {% for order in orders  %}
+                              <tr>
+                                <th scope="row">{{forloop.counter}}</th>
+                                <td>{{order.product.title}}</td>
+                                <td>{{order.total_price}}</td>
+                                <td>{{order.status}}</td>
+                              </tr>
+                              {% endfor %}
+                            </tbody>
+                          </table>
+                    </div>
+                    <div class="right col-md-3 mt-5 text-end">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+</section>
+
+{% endblock profile %}

@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block title %}Orders{% endblock title %}
+
+
+{% block orders %}
+<section class="section-content padding-y">
+    <div class="container">
+        <div class="">
+            <h4 class="bg card" style="padding:1rem;">Orders</h4>
+            <div class="order mt-5">
+                <table class="table">
+                    <thead>
+                      <tr class="text-center">
+                        <th scope="col">Orders</th>
+                        <th scope="col">Product</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Total Price</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Delivery Status</th>
+                        <th scope="col">Order Date</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for order_item in all_orders %}
+                      <tr class="text-center">
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td>{{order_item.product.title}}</td>
+                        <td>{{order_item.product.price | floatformat:'0'}}</td>
+                        <td>{{order_item.quantity}}</td>
+                        <td>{{order_item.total_price}}</td>
+                        <td>{{order_item.address}}</td>
+                        <td>
+                          {% if order_item.status == 'Pending' %}
+                            <div class="progress">
+                                <div class="progress-bar-striped progress-bar-animated bg-warning w-100" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+                                </div>
+                            </div>
+                              <p class="mt-1">{{order_item.status}}</p>
+                          {% endif %}
+
+                              {% if order_item.status == 'Accepted' %}
+                              <div class="progress">
+                                <div class="progress-bar-striped progress-bar-animated bg-success w-25" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                              </div>
+                              <p class="mt-1">{{order_item.status}}</p>
+                              {% endif %}
+
+                              {% if order_item.status == 'Packed' %}
+                                <div class="progress">
+                                  <div class="progress-bar-striped progress-bar-animated bg-info w-50" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <p class="mt-1">{{order_item.status}}</p>
+                              {% endif %}
+
+                              {% if order_item.status == 'On The Way' %}
+                                <div class="progress">
+                                  <div class="progress-bar-striped progress-bar-animated bg-info w-75" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <p class="mt-1">{{order_item.status}}</p>
+                              {% endif %}
+
+                              {% if order_item.status == 'Delivered' %}
+                              <div class="progress">
+                                <div class="progress-bar-striped progress-bar-animated bg-success w-100" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                              </div>
+                              <p class="mt-1">{{order_item.status}}</p>
+                              {% endif %}
+
+                              {% if order_item.status == 'Cancelled' %}
+                              <div class="progress">
+                                <div class="progress-bar-striped progress-bar-animated bg-danger w-100" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                              </div>
+                              <p class="mt-1">{{order_item.status}}</p>
+                              {% endif %}
+
+                          
+                        </td>
+                        <td>{{order_item.ordered_date | naturaltime}}</td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+    </div>
+
+</section>
+{% endblock orders %}

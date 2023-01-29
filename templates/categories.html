@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}All Categories{% endblock title %}
+
+{% block categories %}
+<div class="container mt-5 pt-5">
+    
+    <div class="main-head">
+
+        <div class="head">
+            <h3 style="margin-bottom: 2rem;" class="upper">All Categories</h3>
+        </div>
+        <div class="button">
+            <img class="previous" src="/static/images/arrow.png" alt="">
+            <img class="next" src="/static/images/right-arrow.png" alt="">
+        </div>
+        
+    </div>
+
+    <div class="row">
+      {% for category in categories  %}
+        <div class="col-md-3">
+            <figure class="card card-product-grid">
+                <div class="img-wrap"><img src="/media/{{category.category_image}}"></div>
+                <figcaption class="info-wrap border-top">
+                    <b><a href="{% url 'category_product' category.slug %}" class="title">{{category.title}}</a></b>
+                    <small><p>{{category.description}}</p></small>
+                    {% comment %} <div class="price mt-2" >Price<small style="margin-left: 0.6rem;"><strike>Price</strike></small></div> {% endcomment %}
+                    
+                </figcaption>
+            </figure> <!-- card // -->
+        </div> <!-- col.// -->
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock categories %}
+

@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+CheckOut
+{% endblock title %}
+
+{% block checkout %}
+
+<section class="section-content padding-y mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card p-3">
+                    <h4 style="margin:0.7rem 0 1rem 0;">Shipping Address</h4>
+                    <form method="POST", action="{% url 'address' %}?q=checkout">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <input name="locality" class="form-control" placeholder="First Name" type="text" required>
+                            </div> <!-- form-group// -->
+                            <div class="form-group col-md-6">
+                                <input name="city" class="form-control" placeholder="Last Name" type="text" required>
+                            </div> <!-- form-group// -->
+            
+                        </div>
+                        <div class="form-group">
+                            <input name="email" class="form-control" placeholder="Email Address" type="email" required>
+                        </div> <!-- form-group// -->
+                        <div class="form-group">
+                            <input name="phone" class="form-control" placeholder="Phone Number" type="Number" required>
+                        </div> <!-- form-group// -->
+        
+                        <div class="form-group">
+                            <input name="campany" class="form-control" placeholder="Campany Name (Optional)" type="text" required>
+                        </div> <!-- form-group// -->
+                        <div class="form-group">
+                            <input name="country" class="form-control" placeholder="Country" type="country" required>
+                        </div> <!-- form-group// -->
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block">Save</button>
+                        </div> <!-- form-group// -->
+                    </form>
+                </div>
+
+                <form action="{% url 'checkout' %}" method="post">
+                    {% csrf_token %}
+                    <div class="card p-3 mt-5">
+                        <h4 style="margin:0.7rem 0;">Address</h4>
+                    
+                        <div class="row">
+                            {% if address %}
+                            {% for user_add in address %}
+                            <div class="mt-3 col-md-10">
+                                <h6>Address</h6>
+                                <div style="width:380px;" class="mt-2">
+                                    <p style="margin:0px;" class="input-group">{{user_add.locality}}</p>
+                                    <p style="margin:0px;" class="input-group">{{user_add.city}}</p>
+                                    <p style="margin:0px;" class="input-group">{{user_add.state}}</p>
+                                </div>
+                                
+                            </div>
+                            <div class="right col-md-2 mt-5 text-center" class="form-check">
+                                <input type="radio" class="form-check-input" style="cursor: pointer;" name="radioAddress" id="exampleRadios1" value="{{user_add.id}}" checked>
+                            </div>
+                            {% endfor %}
+                            {% endif %}
+
+                            
+                        </div>
+                    
+                    </div>
+                    <div class="form-check mt-4">
+                        <button type="submit" class="btn btn-primary">Cash On Delivery</button>
+                    </div>
+                </form>
+
+            </div>
+
+
+
+            {% comment %} right Side {% endcomment %}
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group">
+                                <label>Have coupon?</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="" placeholder="Coupon code">
+                                    <span class="input-group-append">
+                                        <button class="btn btn-primary">Apply</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </form>
+                    </div> <!-- card-body.// -->
+                </div> <!-- card .// -->
+                <div class="card">
+                    <div class="card-body">
+                        <dl class="dlist-align">
+                            <dt>Price:</dt>
+                            <dd class="text-right">{{price_amount}}</dd>
+                        </dl>
+                        <dl class="dlist-align">
+                            <dt>Discount:</dt>
+                            <dd class="text-right">0.00</dd>
+                        </dl>
+                        <dl class="dlist-align">
+                            <dt>Charges:</dt>
+                            <dd class="text-right">{{shipping_charges}}</dd>
+                        </dl>
+                        <dl class="dlist-align">
+                            <dt>Total Price:</dt>
+                            <dd class="text-right  h6"><strong>{{total_amount}}</strong></dd>
+                        </dl>
+                        <hr>
+                        <p class="text-center mb-3">
+                            <img src="/static/images/misc/payments.png" height="26">
+                        </p>
+
+                    </div> <!-- card-body.// -->
+                </div> <!-- card .// -->
+
+
+                {% comment %} Payment Options {% endcomment %}
+                <div class="card mb-3 mt-5">
+                    <div class="card-body">
+                    
+                        <div class="form-group">
+                            <label>Payment Options</label>
+                            <div class="input-group mt-3">
+                                <input type="text" class="form-control" name="" placeholder="UPI ID">
+                                <span class="input-group-append">
+                                    <button class="btn btn-primary">UPI ID</button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="icons">
+                            <div class="img"><img width="100%" src="{% static 'images/paytm_logo.png' %}" alt=""></div>
+                            <div class="img"><img width="100%" src="{% static 'images/paypal.png' %}" alt=""></div>
+                        </div>
+                        
+                    
+                    </div> <!-- card-body.// -->
+                </div> <!-- card .// -->
+
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock checkout %}

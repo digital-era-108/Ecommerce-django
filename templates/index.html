@@ -1,0 +1,196 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block cards %}
+
+
+<section class="section-content" style="height:350px; overflow:hidden;">
+    <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active" data-bs-interval="10000">
+            <img src="{% static 'images/banners/2.png' %}" class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item" data-bs-interval="2000">
+            <img src="{% static 'images/banners/1.png' %}" class="d-block w-100" alt="...">
+          </div>
+          
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+
+</section>
+
+
+<section class="section-content">
+    <div class="container">
+        {% comment %} Offer {% endcomment %}
+        <div class="row mt-5">
+            <div class="col-md-6 offer">
+                <img src="{% static 'images/hero/2.jpg' %}" alt="">
+                <div class="offer-text">
+                    <h4>New Smart Watches</h4>
+                    <b><p class="text-muted">Get Up 50% Off</p></b>
+                    <div class="mt-1">
+                        <b><a href="">Shop Now</a></b>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 offer">
+                <img src="{% static 'images/hero/1.jpg' %}" alt="">
+                <div class="offer-text">
+                    <h4>New Mobile</h4>
+                    <b><p class="text-muted">Get Up 50% Off</p></b>
+                    <div class="mt-1">
+                        <b><a href="">Shop Now</a></b>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+{% comment %} Cards {% endcomment %}
+
+<div class="container pt-5 pb-5">
+    
+    <div class="main-head">
+
+        <div class="head">
+            <h3 style="margin-bottom: 1rem;" ></h3>
+        </div>
+        <div class="button">
+            <img class="previous" src="/static/images/arrow.png" alt="">
+            <img class="next" src="/static/images/right-arrow.png" alt="">
+        </div>
+        
+    </div>
+
+    <div class="row">
+      {% for item in products %}
+        <div class="col-md-3">
+            <figure class="card card-product-grid">
+                <div class="img-wrap"><img src="/media/{{item.product_image}}"></div>
+                <figcaption class="info-wrap border-top">
+                    <b><a href="{% url 'product_detail' item.slug %}" class="title">{{item.title}}</a></b>
+                    <small><p>{{item.short_description | slice:'0:60'}}...</p></small>
+                    <div class="price mt-2" >{{item.price}}<small style="margin-left: 0.6rem;"><strike></strike></small></div>
+                    
+                </figcaption>
+            </figure> <!-- card // -->
+        </div> <!-- col.// -->
+        {% endfor %}
+    </div>
+</div>
+
+{% comment %} Categories {% endcomment %}
+
+<section class="section-content mtb-3 bg">
+    <div class="container">
+        <h4 class="heading">TOP CATEGORIES</h4>
+        <div class="main-category">
+            {% if categories %}
+            {% for category in categories %}
+            <div class="card">
+                <a href="{% url 'category_product' category.slug %}">
+                    <div class="category-img">
+                        <img src="/media/{{category.category_image}}" alt="">
+                        <hr>
+                        <div class="category-text text-center">
+                            <h5>{{category.title}}</h5>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+        <a href="{% url 'categories' %}" class="float-end mt-3"><p>Show All</p></a>
+    </div>
+</section>
+
+
+
+<section class="section-content pt-5 pb-4">
+    <div class="container">
+        <div class="black-sale">
+            <img src="{% static 'images/hero/1530x300.jpg' %}" alt="">
+            <div class="black-sale-text">
+                <h3>Black Friday Sale On Laptop</h3>
+                <p>Boost Your Work</p>
+                <a href=""><b>Show Now</b></a>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+
+
+{% comment %} Service {% endcomment %}
+<div class="container ">
+
+     <div class="service-section mt-5">
+        <div class="main-service">
+
+            <div class="ser-card bg">
+                <div class="ser-img">
+                    <img src="{% static 'images/hero/telephone.png' %}" alt="">
+                </div>
+                <div class="ser-text">
+                    <h4>24*7 Support</h4>
+                    <p class="text-muted">Online Support</p>
+                </div>
+            </div>
+
+
+            <div class="ser-card bg">
+                <div class="ser-img">
+                    <img src="{% static 'images/hero/cashback.png' %}" alt="">
+                </div>
+                <div class="ser-text">
+                    <h4>Money Back Guarantee</h4>
+                    <p class="text-muted">100% Secure Payment</p>
+                </div>
+            </div>
+
+
+            <div class="ser-card bg">
+                <div class="ser-img">
+                    <img src="{% static 'images/hero/giftbox.png' %}" alt="">
+                </div>
+                <div class="ser-text">
+                    <h4>Special Gift Cards</h4>
+                    <p class="text-muted">Give The Perfect Gifts</p>
+                </div>
+            </div>
+
+
+            <div class="ser-card bg">
+                <div class="ser-img">
+                    <img src="{% static 'images/hero/free-shipping.png' %}" alt="">
+                </div>
+                <div class="ser-text">
+                    <h4>Free Shipping</h4>
+                    <p class="text-muted">On Order Over Rs 2000</p>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock cards %}

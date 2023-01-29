@@ -1,0 +1,332 @@
+{% extends 'base.html' %} 
+
+{% load static %} 
+{% block title %}Search{% endblock title %} 
+{% block search %}
+
+<section class="section-content">
+  <div class="container">
+    {% if products %}
+    <div class="row mt-5">
+      {% comment %} Left {% endcomment %}
+      <div class="col-md-3">
+        <div class="card bg" style="padding: 1rem">
+          <div class="filter">
+            <h4 class="input-group">Filter</h4>
+            <hr />
+            <div class="brands">
+              <h5>Brands</h5>
+              <div class="form-check mt-3">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                <label class="form-check-label" for="flexCheckDefault">
+                  Vivo
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="flexCheckChecked"
+                />
+                <label class="form-check-label" for="flexCheckChecked">
+                  Realme
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="flexCheckDefault"
+                />
+                <label class="form-check-label" for="flexCheckDefault">
+                  Samsung
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="flexCheckChecked"
+                />
+                <label class="form-check-label" for="flexCheckChecked">
+                  Oppo
+                </label>
+              </div>
+
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="flexCheckDefault"
+                />
+                <label class="form-check-label" for="flexCheckDefault">
+                  Redmi
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="flexCheckChecked"
+                />
+                <label class="form-check-label" for="flexCheckChecked">
+                  OnePlus
+                </label>
+              </div>
+            </div>
+
+            {% comment %} Price Filter {% endcomment %}
+
+            <div class="brands mt-4">
+              <h5>Price</h5>
+              <div class="form-check mt-3">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="flexCheckDefault"
+                />
+                <label class="form-check-label" for="flexCheckDefault">
+                  Under 10,000
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="flexCheckChecked"
+                />
+                <label class="form-check-label" for="flexCheckChecked">
+                  10,000 - 15,000
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="flexCheckDefault"
+                />
+                <label class="form-check-label" for="flexCheckDefault">
+                  15,000 - 20,000
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="flexCheckChecked"
+                />
+                <label class="form-check-label" for="flexCheckChecked">
+                  20,000 - 25,000
+                </label>
+              </div>
+
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="flexCheckDefault"
+                />
+                <label class="form-check-label" for="flexCheckDefault">
+                  40,000 - 50,000
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="flexCheckChecked"
+                />
+                <label class="form-check-label" for="flexCheckChecked">
+                  60,000 Above
+                </label>
+              </div>
+            </div>
+
+            {% comment %} Operating System {% endcomment %}
+
+            <div class="brands mt-4">
+              <h5>Operating System</h5>
+              <div class="form-check mt-3">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="flexCheckDefault"
+                />
+                <label class="form-check-label" for="flexCheckDefault">
+                  Android
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="flexCheckChecked"
+                />
+                <label class="form-check-label" for="flexCheckChecked">
+                  IPhone
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="flexCheckDefault"
+                />
+                <label class="form-check-label" for="flexCheckDefault">
+                  Blackberry
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% comment %} right Side {% endcomment %}
+      <div class="col-md-9">
+        <p class="mb-2">
+          {% if category %}
+          Results - {{category.title}} - " {{products.count}} "
+          {% else %}
+          Search Results - {{query}} - " {{products.count}} "
+          {% endif %}
+        </p>
+        
+        {% for product in products %}
+        <div class="card card-height" style="padding: 1rem">
+          <div class="row">
+            <div class="left-side col-md-4">
+              
+                <div class="main-img">
+                  <img src="/media/{{product.product_image}}" alt="" />
+                </div>
+                <div class="other-img">
+                  <img src="{% static 'images/m5.png' %}" width="30px" alt="" />
+                  <img src="{% static 'images/m5.png' %}" width="30px" alt="" />
+                  <img src="{% static 'images/m5.png' %}" width="30px" alt="" />
+                </div>
+              
+            </div>
+
+            <div class="col-md-7 right-side">
+              <article>
+                <a href="{% url 'product_detail' product.slug %}"><h4 class="title">{{product.title}}</h4></a>
+
+                <div class="rating-wrap my-3">
+                  <ul class="rating-stars">
+                    <li style="width: 80%" class="stars-active">
+                      <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                    </li>
+                    <li>
+                      <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                    </li>
+                  </ul>
+                  <small class="label-rating text-muted">132 reviews</small>
+                  <small class="label-rating text-success">
+                    <i class="fa fa-clipboard-check"></i> 154 orders
+                  </small>
+                </div>
+                <!-- rating-wrap.// -->
+
+                <div class="mb-3">
+                  <var class="price h4">{{product.price}}</var>
+                  
+                </div>
+                
+
+                <p>{{product.short_description | slice:"0:50"}}...</p>
+
+                {% comment %}
+                <dl class="row">
+                  <dt class="col-sm-3">Model#</dt>
+                  <dd class="col-sm-9">Odsy-1000</dd>
+
+                  <dt class="col-sm-3">Color</dt>
+                  <dd class="col-sm-9">Brown</dd>
+
+                  <dt class="col-sm-3">Delivery</dt>
+                  <dd class="col-sm-9">Russia, USA, and Europe</dd>
+                </dl>
+                {% endcomment %}
+
+                <div class="form-row">
+                  {% comment %}
+                  <div class="form-group col-md flex-grow-0">
+                    <label>Quantity</label>
+                    <div class="input-group mb-3 input-spinner">
+                      <div class="input-group-prepend">
+                        <button
+                          class="btn btn-light"
+                          type="button"
+                          id="button-plus"
+                        >
+                          +
+                        </button>
+                      </div>
+                      <input type="text" class="form-control" value="1" />
+                      <div class="input-group-append">
+                        <button
+                          class="btn btn-light"
+                          type="button"
+                          id="button-minus"
+                        >
+                          −
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  {% endcomment %}
+                </div>
+
+                {% comment %}
+                <a href="#" class="btn btn-primary"> Buy now </a> {% endcomment %}
+
+                <form action="{% url 'add_to_cart' %}">
+                  <input type="hidden" name="product_id" , value="{{product.id}}" />
+                  <button type="submit" class="btn btn-outline-primary">
+                    <span class="text">Add to Cart</span
+                    ><i class="fas fa-shopping-cart"></i>
+                  </button>
+                </form>
+              </article>
+            </div>
+          </div>
+          
+        </div>
+        {% endfor %}
+        
+      </div>
+    </div>
+    {% else %}
+        <div class="no-searches mt-5">
+        <p>{% if query %} Search Results - <b>'{{query | slice:"0:40"}}{% if query|length > 20 %}...{% endif %} '</b> {% endif %} {% if category %}Results - <b>{{category.title}}</b> - " {{products.count}} "{% endif %}</p>
+        <p>No Search Results Found</p>
+        <p>Suggestions</p>
+        <ul>
+          <li>Try another keyword</li>
+          <li>Try more general keyword</li>
+          <li>Try fewer keyword</li>
+        </ul>
+        </div>
+    {% endif %}
+  </div>
+</section>
+
+{% endblock search %}

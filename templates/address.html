@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}Address{% endblock title %}
+
+{% block address %}
+<div class="msg-right">
+    {% for msg in messages %}
+        <div class="alert alert-{{msg.tags}} alert-dismissible fade show" role="alert">
+        {{msg}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+           </div>
+    {% endfor %}
+</div>
+
+
+<section class="section-conten padding-y mt-5" style="min-height:84vh">
+
+    <!-- ============================ COMPONENT LOGIN   ================================= -->
+    <div class="card mx-auto" style="max-width: 380px; margin-top:100px;">
+        <div class="card-body">
+            
+            <h4 class="card-title mb-4">Address</h4>
+            <form method="POST", action="{% url 'address' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input name="locality" class="form-control" placeholder="Locality" type="text" required>
+                </div> <!-- form-group// -->
+                <div class="form-group">
+                    <input name="city" class="form-control" placeholder="City" type="text" required>
+                </div> <!-- form-group// -->
+
+                <div class="form-group">
+                    <input name="state" class="form-control" placeholder="State" type="text" required>
+                </div> <!-- form-group// -->
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block">Save</button>
+                </div> <!-- form-group// -->
+            </form>
+            
+        </div> <!-- card-body.// -->
+    </div> <!-- card .// -->
+    <br><br>
+    <!-- ============================ COMPONENT LOGIN  END.// ================================= -->
+
+
+</section>
+
+
+
+
+{% endblock address %}
+
